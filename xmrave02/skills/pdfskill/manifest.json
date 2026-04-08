@@ -1,0 +1,8 @@
+{
+  "name": "pdf-export",
+  "description": "Converts markdown files to PDF using pandoc with LaTeX",
+  "version": "1.0",
+  "triggers": ["export to pdf", "convert to pdf", "make pdf", "export it to pdf", "generuj pdf"],
+  "commands": ["pandoc"],
+  "required_tools": ["bash"]
+}

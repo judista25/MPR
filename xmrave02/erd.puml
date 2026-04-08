@@ -1,0 +1,50 @@
+@startuml ERD-diagram
+skinparam dpi 300
+skinparam backgroundColor #FEFEFE
+skinparam roundcorner 5
+skinparam shadowing false
+
+hide methods
+hide stereotypes
+
+class "Manager" as manager << (T,#E8B4B8) >> {
+    **id** : INT
+    --
+    name : String
+    email : VARCHAR
+    password : VARCHAR
+    role : VARCHAR
+    created_at : DATETIME
+    updated_at : DATETIME
+}
+
+class "Project" as project << (T,#E8B4B8) >> {
+    **id** : INT
+    --
+    name : String
+    start_date : DATE
+    end_date : DATE
+    //owner_id// : INT
+    created_at : DATETIME
+    updated_at : DATETIME
+}
+
+class "Risk" as risk << (T,#E8B4B8) >> {
+    **id** : INT
+    --
+    name : VARCHAR
+    //project_id// : INT
+    probability : INT
+    impact : INT
+    status : VARCHAR
+    description : TEXT
+    mitigation_plan : TEXT
+    created_at : DATETIME
+    updated_at : DATETIME
+}
+
+' Relationships
+manager "1" -- "0..*" project : "owns"
+project "1" -- "0..*" risk : "contains"
+
+@enduml

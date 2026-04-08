@@ -1,0 +1,359 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0061)https://www.fit.vut.cz/study/course/MPR/public/pro-vytah.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+  
+  
+  <meta name="author" content="Premek Brada">
+
+
+  
+  
+  <meta name="revision" content="$Revision: $ $Date: $">
+
+
+  
+  
+  
+
+
+  
+  
+  <title>Specifikace požadavků dle IEEE standardu</title>
+</head>
+
+
+<body style="background-color: rgb(250, 250, 250); direction: ltr;">
+
+
+<p align="left"> </p>
+
+
+<h1 align="center">Specifikace požadavků dle IEEE standardu</h1>
+
+
+<p align="right"> </p>
+
+
+<p><i>Jaký by měl být a co by měl obsahovat dobrý dokument specifikace
+požadavků (DSP) na software. <br>
+
+
+</i><font size="2"><i>(Zdroj: [Pressman], Standard ANSI/IEEE číslo
+830-1984 [IEEE Guide to Software Requirements Specifications, IEEE
+1984,
+in: [IEEE,1990])</i></font><i> </i></p>
+
+
+<p><em>Datum poslední modifikace: 19.2.2026</em></p>
+
+
+<hr bar="---------------------------------------------">
+<h2>Úvod a motivace</h2>
+
+
+<p>Konečným výsledkem analýzy je <span style="font-weight: bold;">dokument
+specifikace požadavků na software</span> (dále DSP). O jeho struktuře
+podrobněji pojednává tento text založený na standardu IEEE 830-1984.</p>
+
+
+<hr bar="------------------------------------------------------------">
+<p> </p>
+
+
+<h2>Osnova a příklad DSP</h2>
+
+
+<p align="left">Na obr.1 je uveden prototyp osnovy DSP. Skutečný
+dokument bude velmi pravděpodobně přizpůsoben konkrétním podmínkám a
+jeho části mohou mít jiná jména a pořadí, nicméně dobrý DSP by měl v
+nějaké formě obsahovat všechny části zde uvedené. </p>
+
+
+<div align="center">
+<center>
+<table border="1">
+
+
+  <tbody>
+
+
+    <tr>
+
+
+      <td>
+      
+      
+      <pre>  Obsah<br>  1. Úvod<br>     1.1 Účel systému<br>     1.2 Rozsah systému<br>     1.3 Definice, zkratky a akronymy<br>     1.4 Reference<br>     1.5 Přehled dokumentu<br>  2. Všeobecný popis<br>     2.1 Kontext produktu [vztahy k ostatním částem systému]  <br>     2.2 Základní přehled funkcí<br>     2.3 Profil uživatele<br>     2.4 Přehled omezujících podmínek<br>     2.5 Předpoklady <i>(assumptions)</i> a závislosti<br>  3. Specifikace požadavků<br>     ... (viz <a href="https://www.fit.vut.cz/study/course/MPR/public/pro-specif.html">separátní popis</a>)<br>  4. Ověřovací kritéria<br>     4.1 Rozsah výkonnostních charakteristik<br>     4.2 Druhy testů<br>     4.3 Platné odezvy<br>     4.4 Specifické případy<br>  Přílohy<br>  Rejstřík<br></pre>
+
+
+      </td>
+
+
+    </tr>
+
+
+  
+  
+  </tbody><caption align="bottom">Obr.1: Prototyp osnovy DSP<br>
+
+
+  <br>
+
+
+  <br>
+
+
+  <br>
+
+
+  <br>
+
+
+  </caption>
+</table>
+
+
+</center>
+
+
+</div>
+
+
+<h3>Oddíl 1 -- Úvod</h3>
+
+
+<p><strong>Účel</strong> říká, proč má být daná aplikace vytvořena a
+vymezuje zamýšlený okruh čtenářů dokumentu. </p>
+
+
+<p><strong>Rozsah systému</strong> udává seznam sw systémů, které mají
+být vytvořeny, co se od nich má (případně nemá) očekávat, a jak budou
+používány (vč. jaké to bude mít přínosy). </p>
+
+
+<p><strong>Definice, zkratky a akronymy</strong> poskytuje definice
+termínů používaných v DSP, aby jej mohl číst i neodborník. </p>
+
+
+<p><strong>Reference</strong> obsahuje úplný seznam všech dokumentů, na
+něž se daný DSP odkazuje (z nichž vychází), a odkud mohou být získány. </p>
+
+
+<p><strong>Přehled dokumentu</strong> říká, jak je zbytek DSP
+zorganizován a co obsahuje. </p>
+
+
+<h3>Oddíl 2 -- Všeobecný popis</h3>
+
+
+<p><strong>Kontext produktu</strong> udává jeho vztahy k ostatním
+produktům, s nimiž má spolupracovat v rámci většího systému (v takovém
+případě jsou zde popsány jednotlivé systémové komponenty a jejich
+rozhraní) a také jeho postavení v organizačním kontextu uživatele. </p>
+
+
+<p><strong>Přehled funkcí</strong> uvádí shrnutí fcí poskytovaných sw
+bez uvedení detailů; je zaměřený především na vrcholový management
+zákazníka a příležitostné čtenáře. </p>
+
+
+<p><strong>Profil uživatele</strong> uvádí všeobecné charakteristiky
+budoucích uživatelů softwaru ('obyčejných' i administrátorů), a jaký
+vliv to má na specifikaci požadavků. </p>
+
+
+<p><strong>Přehled omezujících podmínek</strong> popisuje okolnosti
+omezující volby vývojářů při designu softwaru (dostupný hw pro vývoj a
+provoz, časové či jiné limity, nutnost dodržet rozhraní ke stávajícímu
+sw, použité protokoly, bezpečnost, apod.), tj. to co vás při vývoji
+bude
+brzdit od volného rozletu. ! Odlišné od obsahu následujícího odstavce
+Předpoklady a závislosti. </p>
+
+
+<p><strong>Předpoklady a závislosti</strong> uvádí vąechny faktory od
+nichž jsou odvozeny nebo na nichž závisí požadavky specifikované dále v
+dokumentu, kromě již uvedených omezení. Např. se zde uvede, co musí být
+organizačně a technicky připraveno na místě zákazníka, než bude možné
+systém nainstalovat a provozovat. </p>
+
+
+<h3>Oddíl 3 -- Specifikace požadavků</h3>
+
+
+<p>Obsahuje detailní informace potřebné pro vytvoření návrhu (designu)
+produktu. Tyto detaily by měly být specifikované po jednotlivých
+funkcích systému, splňovat vlastnosti uvedené dále v kvalitativních
+charakteristikách DSP a doplněné křížovými referencemi k příslušným
+částem Úvodu a Všeobecného popisu dle potřeby. </p>
+
+
+<p>Požadavky je možné klasifikovat např. do kategorií (pododdílů
+kapitoly) </p>
+
+
+<ul>
+
+
+  <li>požadavky na funkce </li>
+
+
+  <li>požadavky na výkonnost </li>
+
+
+  <li>požadavky na vlastnosti (atributy) </li>
+
+
+  <li>vnější rozhraní </li>
+
+
+</ul>
+
+
+<p>Je také potřeba popsat <var>strukturu informací (dat)</var>, které
+systém udržuje/zpřístupňuje, ve formě např. výčtu položek nebo odkazem
+do datového slovníku. </p>
+
+
+<p>Protože tento oddíl je obvykle nejrozsáhlejší a vyžaduje podrobný
+popis, je diskuse o něm uvedena v samostatném dokumentu.</p>
+
+
+<p> </p>
+
+
+<h3>Oddíl 4 -- Ověřovací kritéria</h3>
+
+
+<p>Z jistého pohledu nejdůležitější část DSP. Definuje, jak bude možné
+poznat dobrou implementaci systému pomocí jeho <b>výkonnostních
+charakteristik</b> (doby odezvy, velikosti dat, ...), jaké <b>druhy
+testů</b> bude třeba vykonat pro ověření funkcionality a výkonnosti vč.
+<b>specifikace
+reakcí</b>, které má sw poskytnout. Podobně jako u popisu vlastností je
+nezbytné specifikovat tato kritéria <em>číselně </em>, aby bylo možno
+při ověřování změřit skutečné charakteristiky implementace a porovnat
+je
+se zde uvedenými požadavky. </p>
+
+
+<h3>Přílohy -- Doplňující informace</h3>
+
+
+<p>Patří sem zejména <b>obsah</b> a <b>rejstřík</b>, které jsou velmi
+důležité pro rozsáhlé dokumenty. Dále je možno doplnit text <b>přílohami</b>,
+v tomto případě je dobré explicitně uvést zda se tyto mají považovat za
+součást požadavků. </p>
+
+
+<p>Přílohy obsahují např. velké DFD a ERA diagramy, podrobné popisy v/v
+formátů, pomocné informace pro snažší porozumění DSP (výklad
+terminologie, vysvětlení grafických notací, ...); dále také např.
+historii a podporované operační charakteristiky klientské organizace,
+křížové reference na dosud nespecifikované požadavky [viz <a href="https://www.fit.vut.cz/study/course/MPR/public/pro-vytah.html#dobryDSP">Vlastnosti dobrého DSP</a>], instrukce pro balení
+dodávaného sw vzhledem k bezpečnosti a exportním požadavkům, atd. </p>
+
+
+<p><a name="chyby"></a> </p>
+
+
+<hr>
+<h2>Čeho se vyvarovat při psaní DSP</h2>
+
+
+<p>Vzhledem k tomu, co je předmětem DSP, by tento dokument neměl
+obsahovat: </p>
+
+
+<ul>
+
+
+  <li><strong>vágní formulace</strong> -- všechny požadavky musí
+být popsány jednoznačně a přesně; formulace typu "program by
+mohl být použit pro..." nebo "výstupem mohou být např.
+statistiky ..." jsou nepřípustné (odpovídající správné
+formulace: program <em>bude použit</em>, výstup <em>bude obsahovat
+statistiky</em>). </li>
+
+
+  <li><strong>design zakomponovaný do požadavků</strong> -- DSP
+specifikuje <em>co</em> má software dělat, nikoli <em>jak</em> toho
+dosáhnout: to není věc, do které by měl zákazník co mluvit (týká
+se např. rozdělení systému na moduly, specifikace datových
+struktur, toku řízení apod.). </li>
+
+
+  <li><strong>požadavky na proces</strong> -- DSP by se měl týkat
+softwarového produktu, nikoli procesu jeho vytváření. Požadavky
+na termíny dodání, zajištění kvality, procedury pro verifikaci,
+validaci, a předání produktu mají být specifikovány v jiných
+dokumentech kontraktu. </li>
+
+
+</ul>
+
+
+<p><a name="dobryDSP"></a> </p>
+
+
+<h3>Vlastnosti dobrého DSP</h3>
+
+
+<p><strong>jednoznačnost</strong> -- jeden každý požadavek má právě
+jednu interpretaci (pozor na to, že přirozený jazyk je od principu
+nejednoznačný). </p>
+
+
+<p><strong>úplnost</strong> -- obsahuje všechny
+důležité požadavky (na
+funkce, vlastnosti, omezení, ...), definuje odezvy na
+všechny
+realizovatelné kombinace vstupních dat (platných i
+neplatných), splňuje
+případné příslušné normy,
+všechny diagramy apod. mají řádné titulky,
+neobsahuje odkazy typu "bude stanoveno později" (pokud je tyto odkazy
+nutno zahrnout, musí dokument popsat jejich důvod a
+způsob+termín
+odstranění). </p>
+
+
+<p><strong>verifikovatelnost</strong> -- jeden každý požadavek je
+verifikovatelný, tj. "existuje cenově efektivní proces, pomocí něhož je
+možno ručně nebo strojově ověřit, že software odpovídá tomuto
+požadavku"
+(s důrazem na kvantifikovatelnost =&gt; měřitelnost požadavků). </p>
+
+
+<p><strong>konzistence</strong> -- neobsahuje navzájem konfliktní
+množinu požadavků (ten může nastat při použití různých termínů pro
+stejný objekt, při konfliktních požadavcích na takový objekt, nebo při
+časově resp. logicky konfliktních specifikacích dvou akcí). </p>
+
+
+<p><strong>modifikovatelnost</strong> -- jeho struktura a styl dovoluje
+snadné, úplné a konzistentní doplňování případných změn (dokument proto
+by měl být psaný konzistentním stylem bez redundancí a obsahovat
+seznamy
+pro křížové reference jako obsah a index). </p>
+
+
+<p><strong>trasovatelnost</strong> -- je zřejmé, odkud vzešly
+jednotlivé
+požadavky, a na každý požadavek je možné se explicitně odkazovat v
+další
+dokumentaci (zpětná trasovatelnost = u kažého požadavku jsou uvedeny
+jeho zdroje v předchozí dokumentaci, dopředná trasovatelnost= každý
+požadavek má jednoznačnou identifikaci, např. číselnou, důležité při
+údržbě a dohadech). </p>
+
+
+<hr noshade="noshade">
+<p><a href="https://www.fit.vut.cz/study/course/MPR/public/">Management projektů</a></p>
+
+
+
+
+</body></html>
