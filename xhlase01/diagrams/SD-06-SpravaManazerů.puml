@@ -1,0 +1,35 @@
+@startuml SD-06-SpravaManazerů
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 5
+
+actor "Admin" as Admin
+participant "Livewire\nManagerForm" as LW
+participant "ManagerController" as MC
+participant "User Model" as MM
+database "SQLite DB" as DB
+
+Admin -> LW : Otevře sekci\n"Správa manažerů"
+LW --> Admin : Zobrazení seznamu manažerů
+
+Admin -> LW : Klikne "Přidat manažera"
+LW --> Admin : Zobrazení formuláře
+
+Admin -> LW : Zadá jméno, e-mail, roli\na potvrdí
+LW -> MC : Livewire Action: store(data)
+MC -> MM : User::where('email', email)
+MM -> DB : SELECT FROM user
+DB --> MM : výsledek
+
+alt E-mail již existuje
+    MC --> LW : ValidationException
+    LW --> Admin : Chyba pod polem e-mail
+else E-mail je volný
+    MC -> MM : User::create(name, email,\nbcrypt(tmp_heslo), role)
+    MM -> DB : INSERT INTO user
+    DB --> MM : nový manažer
+    MM --> MC : Manager objekt
+    MC --> LW : Aktualizace seznamu
+    LW --> Admin : Nový manažer v seznamu
+end
+
+@enduml

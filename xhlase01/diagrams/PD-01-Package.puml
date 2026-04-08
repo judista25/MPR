@@ -1,0 +1,60 @@
+@startuml PD-01-Package
+skinparam roundcorner 5
+skinparam packageStyle rectangle
+
+package "Prezentační vrstva\n(Frontend)" {
+    package "Livewire Components" {
+        [ProjectList]
+        [ProjectForm]
+        [RiskList]
+        [RiskForm]
+        [RiskMatrix]
+        [ManagerList]
+        [ManagerForm]
+    }
+    package "Blade Views" {
+        [layouts/app.blade]
+        [dashboard.blade]
+        [auth/login.blade]
+        [auth/register.blade]
+    }
+}
+
+package "Aplikační vrstva\n(Backend – Laravel)" {
+    package "Controllers" {
+        [AuthController]
+        [ProjectController]
+        [RiskController]
+        [ManagerController]
+    }
+    package "Models (Eloquent)" {
+        [Manager]
+        [Project]
+        [Risk]
+    }
+    package "Middleware" {
+        [Authenticate]
+        [AdminOnly]
+    }
+}
+
+package "Datová vrstva" {
+    database "SQLite DB" {
+        [managers]
+        [projects]
+        [risks]
+    }
+    package "Migrations" {
+        [create_managers_table]
+        [create_projects_table]
+        [create_risks_table]
+    }
+}
+
+[Livewire Components] --> [Controllers]
+[Controllers] --> [Models (Eloquent)]
+[Models (Eloquent)] --> [SQLite DB]
+[Blade Views] --> [Livewire Components]
+[Controllers] ..> [Middleware]
+
+@enduml
