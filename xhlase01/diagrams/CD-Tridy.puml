@@ -3,18 +3,16 @@ skinparam classAttributeIconSize 0
 skinparam roundcorner 5
 skinparam classBorderThickness 1.5
 
-class Manager {
+class User {
     + id : int
     + name : string
     + email : string
     - password : string
-    + role : string <<Super manager|manager>>
+    + role : string <<super-manager|project-manager|unverified>>
     + created_at : datetime
     + updated_at : datetime
     --
     + projects() : HasMany
-    + isAdmin() : bool
-    + setPasswordAttribute(value) : void
 }
 
 class Project {
@@ -36,8 +34,8 @@ class Risk {
     + id : int
     + name : string
     + project_id : int <<FK>>
-    + probability : int <<1–10>>
-    + impact : int <<1–10>>
+    + probability : int <<1–5>>
+    + impact : int <<1–5>>
     + status : string <<open|mitigated|closed>>
     + description : string
     + mitigation_plan : string
@@ -49,7 +47,7 @@ class Risk {
     + getSeverityAttribute() : string
 }
 
-Manager "1" --> "0..*" Project : owns >
+User "1" --> "0..*" Project : owns >
 Project "1" *-- "0..*" Risk : contains >
 
 @enduml

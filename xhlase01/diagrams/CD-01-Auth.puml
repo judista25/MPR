@@ -2,7 +2,7 @@
 skinparam roundcorner 5
 
 object "Uživatel" as User
-object "AuthController" as Auth
+object "Register/LoginController" as Auth
 object "User Model" as Model
 object "SQLite DB" as DB
 
