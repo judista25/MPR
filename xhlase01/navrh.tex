@@ -1,0 +1,425 @@
+\documentclass{mpr}
+
+\usepackage{float}    % provides [H] – place figure/table exactly here
+\usepackage{placeins} % provides \FloatBarrier
+
+\title{Návrh systému}
+\author{Tomáš Hlásenský}
+\date{8. 4. 2026}
+
+\documentHistory{
+    \version{8. 4. 2026}{Draft}{Tomáš Hlásenský}{Vytvoření dokumentu a základní struktura}
+}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+% ================================================================
+\section{Úvod}
+
+Tento dokument představuje návrh systému pro podporu řízení rizik v projektech.
+Systém je určen projektovým manažerům a jejich nadřízeným.
+Umožňuje evidenci projektů, identifikaci a hodnocení rizik, vizualizaci rizik
+pomocí matice a správu uživatelských účtů.
+
+Systém je implementován jako webová aplikace postavená na frameworku
+\textbf{Laravel 12} s \textbf{Livewire v3} pro reaktivní uživatelské rozhraní
+a \textbf{SQLite} jako datovým úložištěm.
+
+Jsou definovány dvě uživatelské role:
+
+\begin{itemize}
+    \item \textbf{Super manager} – plný přístup ke všem datům a správě uživatelů.
+    \item \textbf{Project manager} – přístup pouze ke svým projektům a rizikům.
+\end{itemize}
+
+% ================================================================
+\section{Dynamická struktura}
+
+Specifikace dynamické struktury vytvářeného systému pomocí sekvenčních diagramů
+a diagramů spolupráce pro klíčové use-case scénáře.
+
+% ----------------------------------------------------------------
+\subsection{Sekvenční diagramy}
+
+\subsubsection{Registrace uživatele (F-004)}
+
+Popis scénáře: Nový uživatel se registruje do systému zadáním jména, e-mailu
+a hesla. Systém ověří unikátnost e-mailu, zahashuje heslo a vytvoří uživatele
+ve stavu pro ověření (\texttt{role = 'unverified'}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, height=0.85\textheight, keepaspectratio]{./navrh-diagrams/diagrams/SD-01-Registrace/SD-01-Registrace.png}
+    \caption{SD-01 – Registrace uživatele}
+\end{figure}
+
+\subsubsection{Ověření uživatele – změna role z unverified na project manager (F-005)}
+
+Popis scénáře: Po registraci má nový uživatel roli \texttt{unverified}
+a nemá přístup k funkcím systému. Super manager vidí seznam neověřených uživatelů
+a může každého ručně ověřit, čímž mu přidělí roli \texttt{project\_manager}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, height=0.85\textheight, keepaspectratio]{./navrh-diagrams/diagrams/SD-07-OvereniUzivatele/SD-07-OvereniUzivatele.png}
+    \caption{SD-07 – Ověření uživatele}
+\end{figure}
+
+\subsubsection{Přihlášení uživatele (F-004)}
+
+Popis scénáře: Existující uživatel se přihlásí pomocí e-mailu a hesla.
+Systém ověří přihlašovací údaje a vytvoří session.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, height=0.85\textheight, keepaspectratio]{./navrh-diagrams/diagrams/SD-02-Prihlaseni/SD-02-Prihlaseni.png}
+    \caption{SD-02 – Přihlášení uživatele}
+\end{figure}
+
+\subsubsection{Vytvoření projektu (F-001)}
+
+Popis scénáře: Přihlášený uživatel vytvoří nový projekt zadáním názvu, popisu
+a termínu. Systém ověří unikátnost názvu pro daného uživatele.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, height=0.85\textheight, keepaspectratio]{./navrh-diagrams/diagrams/SD-03-VytvoreniProjektu/SD-03-VytvoreniProjektu.png}
+    \caption{SD-03 – Vytvoření projektu}
+\end{figure}
+
+\subsubsection{Přidání rizika k projektu (F-002)}
+
+Popis scénáře: Manager otevře detail projektu a přidá nové riziko se jménem,
+dopadem a pravděpodobností (škála 1–5).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, height=0.85\textheight, keepaspectratio]{./navrh-diagrams/diagrams/SD-04-PridaniRizika/SD-04-PridaniRizika.png}
+    \caption{SD-04 – Přidání rizika k projektu}
+\end{figure}
+
+\subsubsection{Zobrazení matice rizik (F-003)}
+
+Popis scénáře: Manager přepne zobrazení projektu z tabulkového na maticové.
+Systém načte všechna rizika projektu a vykreslí heat-mapu 5×5.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth, height=0.75\textheight, keepaspectratio]{./navrh-diagrams/diagrams/SD-05-MaticeRizik/SD-05-MaticeRizik.png}
+    \caption{SD-05 – Zobrazení matice rizik}
+\end{figure}
+
+\subsubsection{Správa manažerů – změna role a smazání (F-005)}
+
+Popis scénáře: Super manager zobrazí seznam všech uživatelů. Může změnit roli libovolného uživatele nebo ho smazat ze systému. Vytváření uživatelů probíhá pouze registrací.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, height=0.85\textheight, keepaspectratio]{./navrh-diagrams/diagrams/SD-06-SpravaManazerů/SD-06-SpravaManazerů.png}
+    \caption{SD-06 – Přidání manažera}
+\end{figure}
+
+% ----------------------------------------------------------------
+\subsection{Diagramy spolupráce}
+
+Diagramy spolupráce jsou alternativní reprezentací sekvenčních diagramů se
+zaměřením na vztahy mezi objekty namísto časové osy.
+
+\subsubsection{Diagram spolupráce – Registrace a přihlášení (F-004)}
+
+Diagram zachycuje spolupráci mezi objekty při procesu registrace a přihlášení.
+Uživatel komunikuje přímo s \texttt{Register/LoginController}, který deleguje práci na
+\texttt{User Model} a databázi. Výsledkem je buď úspěšná session, nebo chybová
+odpověď.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\linewidth]{./navrh-diagrams/diagrams/CD-01-Auth/CD-01-Auth.png}
+    \caption{CD-01 – Registrace a přihlášení}
+\end{figure}
+
+\subsubsection{Diagram spolupráce – Správa projektů a rizik (F-001, F-002)}
+
+Diagram zobrazuje obecný vzor spolupráce pro všechny CRUD operace nad projekty
+a riziky. Uživatel interaguje s Livewire komponentou, která volá příslušný
+controller. Controller využívá Eloquent model pro komunikaci s databází a
+vrací aktualizovaný stav zpět do UI bez nutnosti obnovení stránky.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{./navrh-diagrams/diagrams/CD-02-ProjektyRizika/CD-02-ProjektyRizika.png}
+    \caption{CD-02 – Správa projektů a rizik}
+\end{figure}
+
+\subsubsection{Diagram spolupráce – Vizualizace matice rizik (F-003)}
+
+Diagram znázorňuje spolupráci při načítání dat pro maticové zobrazení.
+\texttt{RiskController} načte kolekci rizik projektu z databáze a předá
+hodnoty pravděpodobnosti a dopadu Livewire komponentě, která je přepočítá
+na souřadnice v matici 5×5 a vykreslí SVG heat-mapu.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{./navrh-diagrams/diagrams/CD-03-MaticeRizik/CD-03-MaticeRizik.png}
+    \caption{CD-03 – Vizualizace matice rizik}
+\end{figure}
+
+% ================================================================
+\section{Statická struktura}
+
+Specifikace statické struktury vytvářeného systému. Zahrnuje package diagram
+pro vysokou úroveň abstrakce a detailní diagram tříd.
+
+\subsection{Package diagram}
+
+Systém je rozdělen do tří hlavních vrstev odpovídajících architektuře Laravel MVC:
+
+\begin{itemize}
+    \item \textbf{Prezentační vrstva (Frontend)} – Blade šablony a Livewire komponenty
+          zajišťující reaktivní uživatelské rozhraní bez nutnosti ručního refreshe stránky.
+          Komponenty: \texttt{ProjectList}, \texttt{ProjectForm}, \texttt{RiskList},
+          \texttt{RiskForm}, \texttt{RiskMatrix}, \texttt{ManagerList}, \texttt{ManagerForm}.
+    \item \textbf{Aplikační vrstva (Backend – Laravel)} – Controllers implementují
+          business logiku a řídí tok dat mezi UI a modely. Middleware \texttt{Authenticate}
+          a \texttt{AdminOnly} chrání koncové body před neoprávněným přístupem.
+          Eloquent modely \texttt{Manager}, \texttt{Project} a \texttt{Risk} mapují
+          databázové tabulky na PHP objekty.
+    \item \textbf{Datová vrstva} – SQLite databáze spravovaná prostřednictvím
+          Laravel migrací. Každá entita má vlastní migraci zajišťující správnou
+          strukturu tabulek, cizí klíče a kaskádní mazání.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth, height=0.9\textheight, keepaspectratio]{./navrh-diagrams/diagrams/PD-01-Package/PD-01-Package.png}
+    \caption{PD-01 – Package diagram}
+\end{figure}
+
+\subsection{Diagram tříd}
+
+Detailní statická struktura tříd systému včetně atributů, metod a vazeb.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth, height=0.75\textheight, keepaspectratio]{./navrh-diagrams/diagrams/CD-Tridy/CD-Tridy.png}
+    \caption{CD – Diagram tříd}
+\end{figure}
+
+\textbf{Popis tříd:}
+
+\begin{itemize}
+    \item \textbf{Manager} – reprezentuje uživatele systému. Atribut \texttt{role}
+          určuje přístupová práva. Metoda \texttt{isAdmin()} vrací \texttt{true}
+          pokud je role \texttt{super\_manager}.
+    \item \textbf{Project} – kontejner pro rizika vlastněný jedním manažerem.
+          Metoda \texttt{getRiskScore()} vrací průměrné skóre rizik projektu.
+    \item \textbf{Risk} – konkrétní riziko přiřazené k projektu. Vypočítaný atribut
+          \texttt{score = probability × impact}. Metoda \texttt{getSeverityAttribute()}
+          vrací textový label (Nízké/Střední/Vysoké/Kritické) podle hodnoty skóre.
+          Riziko je kompozitní entita – nemůže existovat bez projektu.
+\end{itemize}
+
+% ================================================================
+\section{Návrh GUI}
+
+Předběžný návrh uživatelských obrazovek. Systém používá responzivní webové
+rozhraní s postranním panelem pro navigaci.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{./navrh-diagrams/diagrams/GUI-Navigace/GUI-Navigace.png}
+    \caption{Navigace mezi obrazovkami}
+\end{figure}
+
+\textbf{Navigace mezi obrazovkami:}
+
+\begin{itemize}
+    \item \textbf{Postranní panel (Sidebar)} – Hlavní navigační prvek obsahující
+          fixní záložky „Projekty" a „Správa manažerů" (přístupná pouze Super managerům).
+    \item \textbf{Hlavní okno} – Po přihlášení uživatel vidí Seznam projektů.
+          Po výběru konkrétního projektu se v hlavním okně zobrazí rozhraní
+          pro správu rizik daného projektu.
+    \item \textbf{Přepínání zobrazení} – Přímo v rámci okna projektu jsou umístěny
+          ovládací prvky (taby) pro rychlou změnu vizualizace mezi textovým
+          seznamem a maticí rizik bez nutnosti opustit stránku.
+\end{itemize}
+
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\textwidth}{|l|X|}
+        \hline
+        \textbf{Obrazovka} & \textbf{Popis} \\
+        \hline
+        Login / Register   & Vstupní obrazovka s formulářem. Přesměrování na dashboard po úspěšné autentizaci. \\
+        \hline
+        Dashboard          & Kartičky projektů s názvem, termínem a počtem otevřených rizik. \\
+        \hline
+        Detail projektu    & Tabulka rizik s filtry (stav, závažnost). Tlačítko „Přidat riziko". Záložky pro přepínání. \\
+        \hline
+        Matice rizik       & Heat-mapa 5×5. Osa X = pravděpodobnost, osa Y = dopad. Body = jednotlivá rizika. \\
+        \hline
+        Správa manažerů    & Tabulka uživatelů (pouze Super manager). CRUD operace nad manažery. \\
+        \hline
+        Nastavení profilu  & Editace vlastního jména, e-mailu a hesla. \\
+        \hline
+    \end{tabularx}
+    \caption{Popis obrazovek}
+\end{table}
+
+% ================================================================
+\section{Návrh databáze}
+
+Datové úložiště je realizováno pomocí \textbf{SQLite}. Struktura odpovídá
+diagramu tříd.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth, height=0.7\textheight, keepaspectratio]{./navrh-diagrams/diagrams/DB-Schema/DB-Schema.png}
+    \caption{DB – Schéma databáze}
+\end{figure}
+
+\textbf{Poznámky k databázi:}
+
+\begin{itemize}
+    \item Hesla jsou uložena jako \textbf{bcrypt hash} (nikdy plain-text).
+    \item Pole označená hvězdičkou jsou povinná (NOT NULL).
+    \item Mazání projektu kaskádně smaže všechna přiřazená rizika (\texttt{ON DELETE CASCADE}).
+    \item Mazání manažera kaskádně smaže jeho projekty a rizika.
+    \item Tabulka \texttt{risks} je kompozitní entita – záznamy nemohou existovat bez nadřazeného projektu.
+\end{itemize}
+
+% ================================================================
+\section{Specifikace uživatelských testů}
+
+V průběhu návrhu systému jsou specifikovány uživatelské testy ověřující
+funkcionalitu klíčových scénářů.
+
+\subsection{UT-01 – Registrace a přihlášení}
+
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\textwidth}{|l|X|}
+        \hline
+        \textbf{ID}                 & UT-01 \\
+        \hline
+        \textbf{Název}              & Registrace nového uživatele a přihlášení \\
+        \hline
+        \textbf{Předpoklady}        & Systém je dostupný, e-mail nebyl dosud registrován. \\
+        \hline
+        \textbf{Kroky}              & 1. Otevřít \texttt{/register}. \newline
+                                      2. Vyplnit jméno, e-mail, heslo. \newline
+                                      3. Kliknout „Registrovat". \newline
+                                      4. Ověřit přesměrování na dashboard. \newline
+                                      5. Odhlásit se. \newline
+                                      6. Přihlásit se na \texttt{/login}. \\
+        \hline
+        \textbf{Očekávaný výsledek} & Po registraci i přihlášení je uživatel přesměrován na dashboard. \\
+        \hline
+        \textbf{Kritérium úspěchu}  & Obě akce proběhnou bez chyby do 500 ms. \\
+        \hline
+    \end{tabularx}
+    \caption{UT-01 – Registrace a přihlášení}
+\end{table}
+
+\subsection{UT-02 – Vytvoření projektu}
+
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\textwidth}{|l|X|}
+        \hline
+        \textbf{ID}                 & UT-02 \\
+        \hline
+        \textbf{Název}              & Vytvoření nového projektu \\
+        \hline
+        \textbf{Předpoklady}        & Uživatel je přihlášen v systému. \\
+        \hline
+        \textbf{Kroky}              & 1. Na dashboardu kliknout „Nový projekt". \newline
+                                      2. Vyplnit název a termín. \newline
+                                      3. Kliknout „Uložit". \\
+        \hline
+        \textbf{Očekávaný výsledek} & Projekt se zobrazí na dashboardu i v detailu. \\
+        \hline
+        \textbf{Kritérium úspěchu}  & Projekt je viditelný ihned po uložení bez nutnosti obnovit stránku. \\
+        \hline
+    \end{tabularx}
+    \caption{UT-02 – Vytvoření projektu}
+\end{table}
+
+\subsection{UT-03 – Přidání rizika a zobrazení matice}
+
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\textwidth}{|l|X|}
+        \hline
+        \textbf{ID}                 & UT-03 \\
+        \hline
+        \textbf{Název}              & Přidání rizika a zobrazení v matici \\
+        \hline
+        \textbf{Předpoklady}        & Existuje alespoň jeden projekt. \\
+        \hline
+        \textbf{Kroky}              & 1. Otevřít detail projektu. \newline
+                                      2. Kliknout „Přidat riziko". \newline
+                                      3. Zadat název „Výpadek serveru", dopad: 4, pravděpodobnost: 2. \newline
+                                      4. Kliknout „Uložit". \newline
+                                      5. Přepnout na záložku „Matice rizik". \\
+        \hline
+        \textbf{Očekávaný výsledek} & Riziko se zobrazí v tabulce i jako bod v matici na pozici [2, 4]. \\
+        \hline
+        \textbf{Kritérium úspěchu}  & Matice je vykreslena do 300 ms. Bod rizika je ve správném kvadrantu. \\
+        \hline
+    \end{tabularx}
+    \caption{UT-03 – Přidání rizika a zobrazení matice}
+\end{table}
+
+\subsection{UT-04 – Správa manažerů}
+
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\textwidth}{|l|X|}
+        \hline
+        \textbf{ID}                 & UT-04 \\
+        \hline
+        \textbf{Název}              & Ověření nového manažera jako Admin \\
+        \hline
+        \textbf{Předpoklady}        & Přihlášený uživatel má roli \texttt{super\_manager}. \\
+        \hline
+        \textbf{Kroky}              & 1. Přejít na „Správa manažerů" v sidebaru. \newline
+                                      2. Vyhledá manažery s rolí \texttt{unverified}. \newline
+                                      3. Kliknout „Ověřit". \\
+        \hline
+        \textbf{Očekávaný výsledek} & Manažerovi se změní role na \texttt{project\_manager}. \\
+        \hline
+        \textbf{Kritérium úspěchu}  & Manažer může ihned přistoupit k systému. Pokus project managera o přístup na tuto stránku vrátí 403. \\
+        \hline
+    \end{tabularx}
+    \caption{UT-04 – Správa manažerů}
+\end{table}
+
+\subsection{UT-05 – Validace vstupů}
+
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\textwidth}{|l|X|}
+        \hline
+        \textbf{ID}                 & UT-05 \\
+        \hline
+        \textbf{Název}              & Ověření validace formulářů \\
+        \hline
+        \textbf{Předpoklady}        & Uživatel je přihlášen. \\
+        \hline
+        \textbf{Kroky}              & 1. Pokusit se přidat riziko s dopadem 6 (mimo škálu 1–5). \newline
+                                      2. Pokusit se vytvořit projekt s prázdným názvem. \newline
+                                      3. Pokusit se registrovat s existujícím e-mailem. \\
+        \hline
+        \textbf{Očekávaný výsledek} & Ve všech případech systém zobrazí příslušnou chybovou hlášku. Data nejsou uložena. \\
+        \hline
+        \textbf{Kritérium úspěchu}  & Chybová hláška se zobrazí do 200 ms (Livewire real-time validace). \\
+        \hline
+    \end{tabularx}
+    \caption{UT-05 – Validace vstupů}
+\end{table}
+
+\end{document}
