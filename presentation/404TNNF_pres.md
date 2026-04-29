@@ -2,6 +2,7 @@
 marp: true
 theme: default
 paginate: true
+footer: "404 TNNF · FIT VUT 2026"
 style: |
     section {
       font-family: 'Segoe UI', sans-serif;
@@ -40,8 +41,11 @@ style: |
       color: white;
       border-left: none;
     }
-    section.title h1 { color: #ffffff; font-size: 2em; }
-    section.title h2 { color: #29abe2; border: none; font-size: 1.1em; }
+    section.title h1 { color: #29abe2; font-size: 4.5em; font-family: 'Courier New', monospace; letter-spacing: 0.08em; margin-bottom: 0; }
+    section.title h2 { color: #ffffff; border: none; font-size: 1.0em; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0; margin-bottom: 24px; }
+    section.title h3 { color: #8baab8; font-size: 0.85em; font-weight: 400; }
+    section.title footer { color: rgba(255,255,255,0.25); }
+    section.phase footer { color: rgba(255,255,255,0.3); }
     section.phase {
       background: linear-gradient(135deg, #29abe2 0%, #1a5f8a 100%);
       justify-content: center;
@@ -54,11 +58,13 @@ style: |
 
 <!-- _class: title -->
 
-# Systém pro podporu řízení rizik v projektech
+# 404
 
-## 404 TNNF - Management projektů
+## Team Name Not Found
 
-**FIT VUT - jaro 2026**
+### Systém pro podporu řízení rizik v projektech
+
+**FIT VUT · jaro 2026**
 
 ---
 
