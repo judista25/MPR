@@ -3,26 +3,53 @@ marp: true
 theme: default
 paginate: true
 style: |
-  section {
-    font-family: 'Segoe UI', sans-serif;
-    font-size: 26px;
-    padding: 40px 60px;
-  }
-  h1 { color: #2c3e50; font-size: 1.8em; }
-  h2 { color: #2980b9; border-bottom: 2px solid #2980b9; padding-bottom: 6px; margin-bottom: 16px; }
-  h3 { color: #34495e; font-size: 0.95em; margin-bottom: 8px; }
-  table { font-size: 0.8em; width: 100%; }
-  th { background: #2980b9; color: white; padding: 6px 10px; }
-  td { padding: 5px 10px; }
-  tr:nth-child(even) { background: #f0f4f8; }
-  code { background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 0.85em; }
-  footer { font-size: 14px; color: #aaa; }
-  section.title { text-align: center; justify-content: center; background: linear-gradient(135deg, #1a252f 0%, #2c3e50 100%); color: white; }
-  section.title h1 { color: white; font-size: 2em; border: none; }
-  section.title h2 { color: #3498db; border: none; font-size: 1.1em; }
-  section.phase { background: #f8f9fa; }
-  section.phase h2 { color: #7f8c8d; font-size: 0.85em; border: none; margin-bottom: 4px; }
-  section.phase h1 { color: #2c3e50; font-size: 1.5em; }
+    section {
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 26px;
+      padding: 40px 55px;
+      justify-content: flex-start;
+      background: #0f1923;
+      color: #dce8f0;
+      border-left: 5px solid #29abe2;
+    }
+    h1 { color: #ffffff; font-size: 1.7em; margin-bottom: 12px; }
+    h2 {
+      color: #29abe2;
+      font-size: 1.15em;
+      padding-bottom: 6px;
+      margin-bottom: 16px;
+      border-bottom: 2px solid transparent;
+      border-image: linear-gradient(90deg, #29abe2, transparent) 1;
+    }
+    h3 { color: #8baab8; font-size: 0.95em; margin-bottom: 8px; }
+    ul li::marker { color: #29abe2; }
+    table { font-size: 0.8em; width: 100%; border-collapse: collapse; }
+    th { background: #29abe2; color: #1e3448; padding: 7px 10px; }
+    td { padding: 5px 10px; color: #1e3448; border-bottom: 1px solid #1e3448; }
+    tr:nth-child(even) { background: #1a2a3a; }
+    img { max-width: 100%; border: 1px solid #29abe230; border-radius: 4px; padding: 5px; max-height: 460px; margin: 0 auto; display: block; }
+    code { background: #1a2a3a; color: #7dd3fc; border: 1px solid #29abe250; padding: 2px 6px; border-radius: 4px; font-size: 0.85em; }
+    pre { background: #1a2a3a; border: 1px solid #29abe240; border-radius: 6px; padding: 12px; }
+    pre code { border: none; background: transparent; }
+    blockquote { border-left: 4px solid #29abe2; background: #1a2a3a; margin: 8px 0; padding: 10px 20px; border-radius: 0 6px 6px 0; color: #8baab8; }
+    footer { font-size: 14px; color: #8baab8; }
+    section.title {
+      text-align: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0a0f1a 0%, #1a2a3a 100%);
+      color: white;
+      border-left: none;
+    }
+    section.title h1 { color: #ffffff; font-size: 2em; }
+    section.title h2 { color: #29abe2; border: none; font-size: 1.1em; }
+    section.phase {
+      background: linear-gradient(135deg, #29abe2 0%, #1a5f8a 100%);
+      justify-content: center;
+      text-align: center;
+      border-left: none;
+    }
+    section.phase h2 { color: rgba(255,255,255,0.75); font-size: 0.9em; border: none; margin-bottom: 8px; font-weight: 400; }
+    section.phase h1 { color: #ffffff; font-size: 1.8em; }
 ---
 
 <!-- _class: title -->
@@ -30,6 +57,7 @@ style: |
 # Systém pro podporu řízení rizik v projektech
 
 ## 404 TNNF - Management projektů
+
 **FIT VUT - jaro 2026**
 
 ---
@@ -53,18 +81,18 @@ style: |
 
 ## Tým 404 Team Name Not Found
 
-| Člen | Role | Dokument |
-|------|------|----------|
-| Michael Babušík | MNG, ADM | Plán projektu, Uzavření projektu |
-| Tomáš Hlásenský | DEV, DSGN | Návrh systému, Odhad ceny (EVM) |
-| Michal Kaňkovský | QA | Testování, Metriky |
-| Adam Krška | MNG, ADM | Záznamy schůzek, Protokoly etap |
-| Vojtěch Kuchař | REQ | Konfigurační řízení, Sledování prací |
-| Jan Lindovský | MNG | Výsledky oponentury, Seznam rizik |
-| Pavel Marek | QA, ADM | Referenční a uživatelská příručka |
-| Igor Mikula | REQ | Definice problému, Úvodní studie |
-| Marcel Mravec | DEV, REQ | Specifikace požadavků, Analýza |
-| Filip Polomski | DEV, MNG | Plán etapy implementace, LRM |
+| Člen             | Role      | Dokument                             |
+| ---------------- | --------- | ------------------------------------ |
+| Michael Babušík  | MNG, ADM  | Plán projektu, Uzavření projektu     |
+| Tomáš Hlásenský  | DEV, DSGN | Návrh systému, Odhad ceny (EVM)      |
+| Michal Kaňkovský | QA        | Testování, Metriky                   |
+| Adam Krška       | MNG, ADM  | Záznamy schůzek, Protokoly etap      |
+| Vojtěch Kuchař   | REQ       | Konfigurační řízení, Sledování prací |
+| Jan Lindovský    | MNG       | Výsledky oponentury, Seznam rizik    |
+| Pavel Marek      | QA, ADM   | Referenční a uživatelská příručka    |
+| Igor Mikula      | REQ       | Definice problému, Úvodní studie     |
+| Marcel Mravec    | DEV, REQ  | Specifikace požadavků, Analýza       |
+| Filip Polomski   | DEV, MNG  | Plán etapy implementace, LRM         |
 
 ---
 
@@ -74,18 +102,19 @@ style: |
 
 **Schůzky:** 1x měsíčně (plánování, kontrola, retrospektiva)
 
-| Oblast | Nástroj |
-|--------|---------|
-| Verzování kódu | GitHub |
-| Plán projektu | MS Project |
-| Diagramy | PlantUML |
-| Dokumentace | OverLeaf |
+| Oblast         | Nástroj    |
+| -------------- | ---------- |
+| Verzování kódu | GitHub     |
+| Plán projektu  | MS Project |
+| Diagramy       | PlantUML   |
+| Dokumentace    | OverLeaf   |
 
 ---
 
 <!-- _class: phase -->
 
 ## Igor Mikula
+
 # Definice problému + Úvodní studie
 
 ---
@@ -99,6 +128,7 @@ _TODO: Igor doplní obsah_
 <!-- _class: phase -->
 
 ## Marcel Mravec
+
 # Specifikace požadavků
 
 ---
@@ -106,19 +136,21 @@ _TODO: Igor doplní obsah_
 ## Specifikace požadavků
 
 **Systém umožňuje:**
+
 - Správu projektů, manažerů a rizik
 - Kvalitativní analýzu rizik (matice)
 - Filtrování a přehledy rizik
 
 **Mimo rozsah:** Helpdesk, AI doplňování rizik
 
-**Role:** `super_manager` · `project_manager` · `unverified`
+**Role:** `admin (super_manager)` · `project_manager` · `unverified`
 
 ---
 
 <!-- _class: phase -->
 
 ## Michael Babušík
+
 # Plán projektu
 
 ---
@@ -132,6 +164,7 @@ _TODO: Miki doplní obsah (harmonogram, milníky, zdroje)_
 <!-- _class: phase -->
 
 ## Tomáš Hlásenský
+
 # Návrh systému
 
 ---
@@ -140,7 +173,7 @@ _TODO: Miki doplní obsah (harmonogram, milníky, zdroje)_
 
 ```
 ┌─────────────────────────────────────────┐
-│              Browser (Livewire)          │
+│              Browser (Livewire)         │
 └─────────────┬───────────────────────────┘
               │ HTTP / WebSocket
 ┌─────────────▼───────────────────────────┐
@@ -150,7 +183,7 @@ _TODO: Miki doplní obsah (harmonogram, milníky, zdroje)_
 └─────────────┬───────────────────────────┘
               │
 ┌─────────────▼───────────────────────────┐
-│            SQLite                        │
+│            SQLite                       │
 │  managers · projects · risks            │
 └─────────────────────────────────────────┘
 ```
@@ -161,18 +194,7 @@ _TODO: Miki doplní obsah (harmonogram, milníky, zdroje)_
 
 ## Datový model
 
-```
-managers          projects              risks
-─────────         ────────              ─────
-id                id                    id
-name              name (unique/user)    name
-email             description           impact      1–10
-password (bcrypt) deadline              probability 1–10
-role              manager_id ──────┐    score = i × p
-                                   │    project_id ───┐
-                  ◄────────────────┘                  │
-                  ◄──────────────────────────────────┘
-```
+![ER Diagram](../out/xhlase01/diagrams/DB-Schema/DB-Schema.png)
 
 Cascade delete: projekt → rizika, manažer → projekty → rizika
 
@@ -180,19 +202,20 @@ Cascade delete: projekt → rizika, manažer → projekty → rizika
 
 ## Návrh GUI
 
-| Obrazovka | Popis |
-|-----------|-------|
-| Login / Register | Formulář, přesměrování na dashboard |
-| Dashboard | Kartičky projektů — název, termín, počet rizik |
-| Detail projektu | Tabulka rizik, filtry, záložky |
-| Matice rizik | Heat-mapa 5×5 (X = pravděpodobnost, Y = dopad) |
-| Správa manažerů | CRUD nad uživateli (jen admin) |
+| Obrazovka        | Popis                                          |
+| ---------------- | ---------------------------------------------- |
+| Login / Register | Formulář, přesměrování na dashboard            |
+| Dashboard        | Kartičky projektů — název, termín, počet rizik |
+| Detail projektu  | Tabulka rizik                                  |
+| Matice rizik     | Heat-mapa 5×5 (X = pravděpodobnost, Y = dopad) |
+| Správa manažerů  | CRUD nad uživateli (jen admin)                 |
 
 ---
 
 <!-- _class: phase -->
 
 ## Filip Polomski
+
 # Plán etapy implementace + LRM
 
 ---
@@ -206,6 +229,7 @@ _TODO: Filip doplní obsah_
 <!-- _class: phase -->
 
 ## Vojtěch Kuchař
+
 # Konfigurační řízení + Sledování prací
 
 ---
@@ -219,6 +243,7 @@ _TODO: Vojta doplní obsah_
 <!-- _class: phase -->
 
 ## Jan Lindovský
+
 # Seznam rizik + Výsledky oponentury
 
 ---
@@ -232,19 +257,20 @@ _TODO: Lindak doplní obsah_
 <!-- _class: phase -->
 
 ## Michal Kaňkovský
+
 # Zpráva o testování + Metriky
 
 ---
 
 ## Uživatelské testy
 
-| ID | Scénář | Kritérium |
-|----|--------|-----------|
-| UT-01 | Registrace + přihlášení | < 500 ms |
-| UT-02 | Vytvoření projektu | viditelný ihned (Livewire) |
-| UT-03 | Přidání rizika + matice | matice do 300 ms |
+| ID    | Scénář                   | Kritérium                      |
+| ----- | ------------------------ | ------------------------------ |
+| UT-01 | Registrace + přihlášení  | < 500 ms                       |
+| UT-02 | Vytvoření projektu       | viditelný ihned (Livewire)     |
+| UT-03 | Přidání rizika + matice  | matice do 300 ms               |
 | UT-04 | Ověření manažera (admin) | změna role OK, 403 pro ostatní |
-| UT-05 | Validace formulářů | chyba do 200 ms bez POST |
+| UT-05 | Validace formulářů       | chyba do 200 ms bez POST       |
 
 _TODO: Michal doplní metriky produktu_
 
@@ -253,6 +279,7 @@ _TODO: Michal doplní metriky produktu_
 <!-- _class: phase -->
 
 ## Pavel Marek
+
 # Referenční a uživatelská příručka
 
 ---
@@ -266,6 +293,7 @@ _TODO: Pavel doplní obsah_
 <!-- _class: phase -->
 
 ## Adam Krška + Michael Babušík
+
 # Záznamy schůzek + Uzavření projektu
 
 ---
@@ -288,6 +316,7 @@ _TODO: Adam + Miki doplní obsah_
 ---
 
 ## Shrnutí
+
 _TODO: Shrnutí klíčových bodů a přínosů projektu_
 
 ---
